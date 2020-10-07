@@ -26,6 +26,7 @@ def get_dir():
 def rename_alll(pathToPdf, pathToOutput, x):
   
     for filename in os.listdir(pathToPdf):
+        print (filename)
         if filename.find(".py")==-1:
             #do stuff with the files
 
@@ -33,25 +34,38 @@ def rename_alll(pathToPdf, pathToOutput, x):
             text = []
           
 
+
             text=  read_text(pathToPdf + filename)
+
+
+        
 
             textEnglish = filter_text(text)
 
 
-            print (textEnglish)
+
+            try:
+                textDutch = translate_text(textEnglish)
+                append_text_file(textDutch, pathToOutput)
+            except:
+                print ("oops")
 
 
-            textDutch = translate_text(textEnglish)
 
-            append_text_file(textDutch, pathToOutput)
-
-
+def get_introduction(myString):
+     mySubString = myString[myString.find("Introduction"):myString.find("2.")]
+     return mySubString
 
 
 
 def append_text_file(text, x):
     with open(x, "a", encoding="utf-8") as myfile:
         myfile.write(text)
+        myfile.close()
+
+
+def check_is_none(text):
+    return text!=None
 
 
 def filter_text(textArray):
@@ -61,15 +75,17 @@ def filter_text(textArray):
 
     for textPage in textArray:
 
-        while get_mirror2(textPage) !=None:
+        textPage = get_introduction(textPage)
 
-            textPage = ""
+        while check_is_none(get_mirror2(textPage)):
+
+            sub = ""
+           
 
             sub = get_mirror2(textPage)
 
-
-            if sub !=None:
-                textPage.replace(sub, "")
+            if check_is_none(sub):
+                textPage = textPage.replace(sub, "")
 
 
         text = text + textPage
