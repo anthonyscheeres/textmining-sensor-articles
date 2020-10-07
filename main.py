@@ -3,7 +3,7 @@
 import os
 
 from googletrans import Translator
-
+import PyPDF2 
 
 import subprocess
 
@@ -28,10 +28,81 @@ def rename_alll(dir, x):
     for filename in os.listdir(dir):
         if filename.find(".py")==-1:
             #do stuff with the files
-            print ("hi")
+
+
+            text = []
+
+          
+
+            text=  read_text(dir)
+
+            textEnglish = filter_text(text)
+
+            textDutch = translate_text(textEnglish)
+
+            append_text_file(textDutch, x)
 
 
 
+
+
+def append_text_file(text, x):
+    with open(x, "a") as myfile:
+        myfile.write(text)
+
+
+def filter_text(textArray):
+
+    for index in textArray:
+        
+        textPage = textArray(index)
+
+
+        while get_mirror2(textPage) !=null:
+            sub = get_mirror2(textPage)
+            textPage.remove(sub)
+
+        text = textPage
+
+        if "2." in textPage:
+            break
+
+        
+    return text
+
+
+def translate_text(text):
+    translator = Translator()
+    return translator.translate(text, dest="nl", src="en")
+
+
+def read_text(path):
+
+    # creating a pdf file object 
+    pdfFileObj = open(path, 'rb') 
+  
+# creating a pdf reader object 
+    pdfReader = PyPDF2.PdfFileReader(pdfFileObj) 
+
+    textArray =[]
+
+    for page in pdfReader.numPages:
+        # creating a page object 
+        pageObj = pdfReader.getPage(page) 
+        # extracting text from page 
+        textArray.append(pageObj.extractText())
+
+
+    return textArray;
+  
+
+
+
+# closing the pdf file object 
+    pdfFileObj.close() 
+
+
+    return text
 
 
 
@@ -46,8 +117,12 @@ def get_mirror2(myString):
 
 
 def main():
+
+    x = "output.txt"
     dir=get_dir()
-    rename_alll(dir, x)
+
+    path = dir +"\\article\\"+ filename
+    rename_alll(path, x)
 
 
 
