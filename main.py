@@ -25,7 +25,12 @@ def get_dir():
 
 def rename_alll(pathToPdf, pathToOutput, x):
   
+    number = 1
+
     for filename in os.listdir(pathToPdf):
+
+
+
         print (filename)
         if filename.find(".py")==-1:
             #do stuff with the files
@@ -40,23 +45,23 @@ def rename_alll(pathToPdf, pathToOutput, x):
 
         
 
-            textEnglish = filter_text(text)
+            textEnglish = filter_text(text, number)
 
 
 
             try:
                 textDutch = translate_text(textEnglish)
                 append_text_file(textDutch, pathToOutput)
+                number = number + 1 
             except:
                 print ("oops")
 
 
 
 def get_header(myString):
-    try:
-        mySubString = myString[myString.find("20"):myString.index(" ", myString.find("www.mdpi.com/journal/"))]
-    except:
-        mySubString = None
+
+    mySubString = myString[myString.find("20"):myString.find("www.mdpi.com/journal/")]
+
 
     return mySubString
 
@@ -76,9 +81,22 @@ def check_is_none(text):
     return text!=None
 
 
-def filter_text(textArray):
+
+def get_title(myString):
+
+    firstPage = myString[0]
+
+
+    subString = firstPage[firstPage.find("\n"):-1]
+
+    return subString
+
+
+def filter_text(textArray, number ):
     
-    text = ""
+    text = "Sensor technologie gerelateerd artikel nummer "+str(number) + get_title(textArray)  
+
+    
 
 
     for textPage in textArray:
