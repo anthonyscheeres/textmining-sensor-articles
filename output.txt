@@ -1,0 +1,803 @@
+Artikel
+Op fisheye gebaseerde methode voor GPS-lokalisatie
+VerbeteringinUnknownSemi-Obstructed Areas
+JulienMoreau
+1,
+*, SébastienAmbellouis
+2
+andYassineRuichek
+1
+1
+UTBMIRTES-SET, RueErnestThierryMieg, 90010 BelfortCEDEX, Frankrijk; yassine.ruichek@utbm.fr
+2
+IFSTTAR-COSYS-LEOST, 20rueÉlyséeReclus, BP7031759666 Villeneuved'AscqCEDEX, Frankrijk;
+sebastien.ambellouis@ifsttar.fr
+*
+Correspondentie: julien.moreau@ifsttar.fr
+Academisch Redacteur: FelipeJimenez
+Ontvangen: 30 oktober 2016; Geaccepteerd: 4 januari 2017; Gepubliceerd: 17 januari 2017
+Abstract:
+Een nauwkeurige GNSS-lokalisatie (GlobalNavigationSatelliteSystem) is essentieel voor
+weg
+voertuigen, met name in een rommelige of stedelijke omgeving waar satellieten zijn uitgesloten, waardoor
+nauwkeurige positionering.Wij stellen zich in omGPS-gegevens (GlobalPositioningSystem) te gebruiken met
+stereovisie om dit probleem onafhankelijk te maken van aanvullende gegevens, mogelijk verouderd, niet beschikbaar,
+encorrelatie met de werkelijkheid nodig hebben. Ourstereoscopeissky-facingwith
+360 ° × 180 °
+camera's
+omobstakels in de omgeving waar te nemen.Weproposea3D-modelleringenvliegtuigafzuiging door
+volgende stappen: stereoscopische zelfkalibratie voor de kalibratie robuustheid, stereomatching overwegen
+burenpipolaircurvestocompute3D, androbustplangebaseerdopgeleverdecartografie
+andHoughtransform.Weusethese3DdatawithGPSrawdatatoestimateNLOS (NonLineOf
+Sight) rsignalspseudorangedelay.Weexploitegeëxtraheerde vliegtuigenopbouwbeschikbaarheidsmaskervoor
+NLOSdetectie.A3Dkanonmodel-toestaanaancomputerspseudorangetelays.
+In het einde wordt de gps-positionering berekend rekening houdend met gecorrigeerde pseudobereiken.
+onrealscenes, whowgegenereerde 3D-modellen die metrische nauwkeurigheid enverbetering van
+horizontaleGPS-positioneringnauwkeurigheidbymor dan50% .De voorgestelde procedure is effectief, en de
+voorgesteldeNLOSdetectieoutperformsCN0-gebaseerde methoden (carrier-to-receiverNoisedensity).
+Sleutelwoorden:
+voertuigpositionering; GPS; stereovisie; 3Dpointcloud
+1. Inleiding
+Het is een uitdagend probleem voor het corrigeren van PR (PseudoRange) vertragingen om GNSS (Global
+NavigationSatelliteSystem) lokalisatie.PRzijneenvandewaardengeplaatstomeenGNSSpositie te berekenen
+op de aardbol. zij vertegenwoordigen de gemeten afstand tussen de ontvanger en de satelliet,
+dat betekent dat ze meestal bias omvatten. apseudoranje is meestal rond enkele duizenden
+kilometers, maareenschattingfoutzwaarlasommetersnoodaaneennauwkeurige positioneringdie
+kunnen gemakkelijk de oorzaak van een meterfout opzoeken.
+De gepresenteerde procedureafsprakenmetlokalePRvertragingineenautonome weg.
+ingesloten gegevens, die grote voordelen hebben, met name de verwijdering van het plaatsingsprobleem
+zijnopgenomen3Dmodel.Theideaistogeneratea3Dlocalmodelonline, met asky-facing
+verrekijker stereovisueel vertraagda360
+° ×
+180
+°
+van het uitzicht in om rondom te komen
+het voertuig. het belangrijkste belang vansucha3 wederopbouw, centraal op een lokaal voertuigframe,
+is dat de
+GNSSantennapositie isnatuurlijk bekend met een hoge nauwkeurigheid in het model. Deze op visie gebaseerde
+methode wordt gekozen vanwege zijn vaststellingen
+eenvoudig te integreren
+onavehicle, togetdensedataabout
+het omliggende gebied met alleen een overname (twee afbeeldingen) en de lage kosten vergeleken met tolasensoren.
+Omdat de procedure niet in realtime is, toont onze tijd de haalbaarheidenef.
+Sensoren
+2017
+,
+17
+, 119; doi: 10.3390 / s17010119
+www.mdpi.com/journal/sensors
+Sensoren
+2017
+,
+17
+, 119
+10van34
+2.Ware-schaal3DModelleringvoorde voorgestelde methode
+Voorgestelde oplossingom de GNSSnauwkeurigheid te verbeteren in semi-occlude en omgeving is correct NLOS
+pseudo-vertraging.Dit heeft een 3D-model van het lokale gebied nodig.Gemeenschappelijke problemen van de staat van de kunst
+oplossingen zijn:
+Ł
+Gegevens moeten zo vaak mogelijk worden bijgewerkt.
+Ł
+Herpositionering in het 3D-model is moeilijk, waar de ontvanger niet goed gelokaliseerd is in de echte wereld.
+Ons doel is samen te gaan om het probleem op te lossen van een autonome manier.
+bestaat automatischopbouwendemilieu3D-model.Dit wordt op deze manier gegenereerd
+3D-model in de staat van het gebied en de positie van de ontvanger in het 3D-model is al bekend
+met hoge precisie.
+Het 3D-model wordt gegenereerd op basis van afbeeldingen van de voertuigvisiesensor. Het wordt gecentreerd op het lokale
+cameraframe.Camera'senGPS-antennes van de ontvanger worden gescheiden door een geldige transformatie (zie
+inFiguur
+4
+Met dank aan de transformatie, kan het gegenereerde model worden gelijk aan antennes
+Met andere woorden, gemodelleerde obstakelszijnintrinsiekennauwkeuriggeplaatst volgens
+Deze innovatie voorkomt het lokalisatieprobleem van de ontvanger in een opgenomen modelgps
+WGS84-frame, omdat de positie van de ontvanger alleen weet te berekenen
+(onnauwkeurige) GPS-positie in het WGS84-frame voor de versmelting met 3D-gegevens Topass van het lokale halve frame naar
+ENU-frame (EastNorthUp) is toegestaan ​​doorverticaalengeografischNoordassen te gebruiken.Satellietenkunnenworden
+gepositioneerdinhetENU-kadercentrumdeontvangereenvolgensdeirazimuthandelingen.
+Dus de voorgestelde methode elimineert het probleem met de ontvangst van de positie, omdat het 3D-model relatief wordt verwijderd
+tot deze positie.
+De methodologie die in dit papier is ontwikkeld, wordt weergegeven inFiguur
+2
+.Weconsidera
+goedkoop om 3D-informatie op te halen en te berekenen, met behulp van een camera met twee gezichten.
+De algoritmen zijn onderverdeeld in 2 hoofdonderdelen: 3D-modellering en GPS-verbetering door
+gegenereerde 3D-gegevens. veelstappenverschijnenin elk van deze onderdelen. 3D-modelleerbehoeften op twee weergaven
+ijktniet de relatieve oriëntatie tussen posities en het azimut van het voertuig.
+voltooiing van het matchproces wordt toegepast op een maximum van de details van het gebied. Het model is samengesteld
+Door een set van 3D-punten, kan binnen een planendetectie worden verwerkt om semantische gegevensvandescène te openen.
+Vliegtuigen worden dan gebruikt om een ​​zichtbaarheidsmasker te genereren. Dit wordt gebruikt om NLOS te detecteren.
+satellieten.DecorrectievanNLOSpseudorangesegebaseerdoplokalegeometrieinde
+3D-model.DelaagwordtverwijderdvanNLOSpseudorange en een of herprecisepositie kan
+worden berekend.Sensoren
+2017
+,
+17
+, 142
+6van15
+Figuur 3.
+Segmentenvancitrusvruchtenvoorgrondvoordeberekeningvanstandaardafwijking, (
+a1
+) isanormaal
+colorimage (VIS); (
+b1
+) is het overeenkomstige NIR-beeld van (
+a1
+); (
+c1
+) is een neutrale dichtheid verminderd
+afbeelding (NEUT); (
+d1
+) is het overeenkomstige NIR-beeld van (
+c1
+); (
+e1
+) isaline-polarisator-verzwakte afbeelding
+(POLA); (
+f1
+) is het overeenkomstige NIR-beeld van (
+e1
+); (
+a2
+Œ
+f2
+) zijn de overeenkomstige gesegmenteerde afbeeldingen
+rondomhetfruitgebiedeenvandegewijsuitdaaruit.
+Tafel 1.
+STDofRGBcomponentenvoortypenkleurenafbeeldingen.
+TypesofColorImage VISNEUTPOLA
+Componenten van RGB
+kleur ruimte
+RoodGroenBlauwRoodGroenBlauwRoodGroenBlauw
+STDofcitrus
+voorgrondkleur
+0.14540.16250.20370.24400.24940.13380.26320.23970.1034
+Tafel 2.
+STDvanintensiteitvanNIRcomponentpaarwisvoortypenkleurenafbeeldingen.
+Intensiteit van NIR voor
+ColorImage
+Intensiteit van NIR
+met VIS
+Intensiteit van NIR
+metNEUT
+Intensiteit van NIR
+met POLA
+STDofcitrusvoorgrondinNIR
+0.13360.12750.1306
+Figuur4.
+Regelingsovereenstemming met RGB- en NIR-componenten.Sensoren
+2017
+,
+17
+, 143
+5van18
+Figuur 1.
+Beschrijving van het formuleren van toegangsgedrag van mensen in Wi-Fi-netwerken.
+Voor het gemak van de beschrijving, kunt u het algemene 802.11gegevendiagram zien
+inFiguur
+2
+.AWi-Fideapparaatwerkt meestalin de landgoederen, en elke staatis opeenvolgend hoger
+puntintensievandevervolgensinIEEE802.11verbinding.Frameswordengedeeldinverschillend
+klassen. deWi-Fidevicestartsinstate1, endatakan worden verzonden via een distributie
+systemonlyinstate 3. Het Wi-Fi-apparaat wijzigt de status door verschillende frames uit te wisselen met
+hetAP.Wanneer een apparaat toegang krijgt tot eenAP, verandert itexhetauthenticatieframe met hetAP
+en vervolgens het verzoek voor associatie / herassociatie in het AP beantwoordt, beantwoordt het AP met de
+Association / Re-associatieResponseframe.TheDisassociationofDe-authenticationframecanbe
+gebruikt om de verbinding af te breken.
+Figuur 2.
+Algemeen802,11stediagram.
+We maken over de toegang van mensen tot de bewerkingen vanaf een AP, zoals weergegeven
+Omwille van eenvoud, weAssociatie / Re-associatieResponseframe en
+Disassociatie / De-authenticationframeastheaccessframeandexitframe, respectievelijk
+hettoegangsframeendeuitgangsframeontvangsttijdopdemonitorisdegeschattingvande
+de feitelijke tijdvandetoegang tot de gebeurtenisvandewi-fideapparaat. daarom kan er
+tussen hen. De vertraging verandert onder verschillende draadloze omgeving. De vertraging kan bijvoorbeeld
+hoe langer het draadloze netwerk is, of andersom.
+Figuur
+3
+naar de procedures voor het openen van een versleuteldAP. De Wi-Fi-apparaten kunnen hetAP
+Na het AP bouwen het apparaat een verbinding met het AP en beginnen ze metSensoren
+2017
+,
+17
+, 144
+6van11
+Hetelektrokatalytischegedragvande3,4DHSŒAuNP / SPCelektrode naar de oxidatie
+van H.
+2
+O
+2
+atpH7ŠdeoptimalevoorlactaatoxidaseenzymefunctieŠwerd bestudeerd.Figuur
+3
+een
+toont de cyclische voltamogrammen van 3,4DHSŒAuNP / SPCEin0,1Mfosfaatbuffer (pH7) in
+de afwezigheid en aanwezigheid van 1,0 mMofH
+2
+O
+2
+opgenomenop0.01V
+
+s
+
+1
+.Bij afwezigheid van H.
+2
+O
+2
+,
+een elektrochemische reactie (Figuur
+3
+a, grijslijn) toegeschreven aan de oxidatie / reductie van
+de hydrochinon / chinon-soorten van de 3,4DHS werden waargenomen. echter, in de aanwezigheid van
+2
+O
+2
+,
+er was een dramatische toename van de anodische piekstroom en praktisch geen stroom werd waargenomen
+inthereverse (kathodische) scan (figuur
+3
+a, zwarte lijn) .Dit gedrag kan zeer sterk zijn
+elektrokatalytisch effect. 3,4DHSŒAuNP / SPC heeft dus een uitstekende elektro-katalytische activiteit naar
+de oxidatie van H.
+2
+O
+2
+en vergemakkelijkt de elektrochemische detectie van deze verbinding voor een lager potentieel.
+Figuur 3.
+(
+een
+) Cyclischvoltammogramvan3,4DHSŒAuNP / SPCEin0,1Mfosfaatbuffer (pH7) in de
+afwezigheid (greyline) of aanwezigheid (blackline) van 1,0 mMofH
+2
+O
+2
+; (
+b
+) Cyclischvoltammogramoflactaat
+oxidase (LOx) /3,4DHSŒAuNP/SPCEin0,1M-fosfaatbuffer (pH7) in afwezigheid (stippellijn) of
+aanwezigheid (ononderbroken lijn) van 0,5 mMlactaat.Scanrate: 0,01V
+
+s
+
+1
+.
+Het3,4DHSŒAuNP / SPCE-platform werd gebruikt om een ​​sabotagemeting te ontwikkelen.
+op basis van deH
+2
+O
+2
+bevrijdtijdensdezymatische reactie. de biosensor was
+ontwikkelddoorkoppelingdeelactaatoxidaseenzymethet3,4DHSŒAuNP / SPCE-platform, zoals beschreven
+in het experimentele gedeelte. de cyclische voltammetrische biosensorrespons (LOx / 3,4DHSŒAuNP / SPCE)
+in de aanwezigheid en afwezigheid van het substraat (lactaat) werd gebruikt om de katalytische activiteit te beoordelen
+3
+b).
+Bij afwezigheid van lactaat (grijze lijn), was de goedgedragende redoxreactie van 3,4DHSŒAuNP gemakkelijk
+Na toevoeging van lactaat (tot een concentratie van 0,5 mM), was er een toename in
+anodische piekstroom doorelektrokatalytische oxidatie van de H.
+2
+O
+2
+gegenereerdinteenzymatische reactie.
+Bovendien werd een afname in de kathodepiekstroom waargenomen (zwarte lijn).
+het enzym in de katalytische respons op het substraat, 3,4DHSŒAuNP / SPC-elektroden zonder
+geïmmobiliseerd LOx werd ondergedompeld in 0,1 M fosfaatbufferoplossing (pH 7,0).
+na toevoeging van lactaat werden geen katalytische golven waargenomen.
+Het aantal van beide LOxen3,4DHSŒAuNPsin de ontwikkeling van de biosensor is geoptimaliseerd.
+Voor het doel worden verschillende biosensoren met een toenemend aantal van beide componenten voorbereid,
+enhunresponsestolactaatwerd verkregen. de biosensorresponsie is toegenomen als deeenheden van enzym
+opgenomen in de detectielaag verhoogd van 0,3 tot 1,0 U (Figuur
+4
+a). hogere enzymbelasting,
+er was een afname in de reactie van de biosensor. Dit is waarschijnlijk te wijten aan een overtollig eiwit in de
+biosensielaag die zou kunnen voorkomen dat de lading wordt overgedragen naar het elektrodenoppervlak.
+met deze resultaten werd 1.0UofLOx als optimaal gekozen.
+Als enige verwachting, toont de LOxbiosensor een afhankelijkheid van de hoeveelheid
+van3,4DHSŒAuNPsafgezetophetelektrodesurface.Biosensorenvoorbereidmet20,70, of180fmolofSensoren
+2017
+,
+17
+, 145
+4van 10
+frame (ORF), en door Rluc8 rechtstreeks naar het
+N
+-terminusorgescheidenmetapeptidelinker
+(4
+
+glycine).
+TheescentdyePerCP-Cy5.5
+®
+(LightningLink, Cambridge, VK) was niet-draagbaar
+recombinantneuropiline-1 (NRP-1) (R & DSystems, Wiesbaden, Duitsland) volgens een fabrikant
+instructies om het BRETacceptor-interview te genereren, 1
+
+Lofwerdaan10 toegevoegd
+
+Lof
+carrier-vrijeuropiline1 (1.0
+
+g /
+
+L) .Het hele monster werd gemengd en gepipetteerd naar het gelyofiliseerd
+LightningLinkmix.Na incubatie op kamertemperatuur voor 3 uur, 1
+
+LofLL-quencherFDreagent
+wastoegevoegdper10
+
+L.Naaanvullende incubatie gedurende 30 minuten, zijn de conjugaten klaar voor gebruikof
+opgeslagenat
+
+20
+
+C.
+2.2 Celcultuur en BRETDonor-expressie
+HEK293 (ATCC: CRL-1573) werden gekweekt in DMEM (Dulbeccoseaglemedia)
+aangevuld met penicilline / streptomycine, l-glutamine (200 mM) en 10% foetaal runderserum (FBS)
+(allemaal gekocht van PANBiotech, Aidenbach, Duitsland) .De cellenworden getransfecteerdmetdeBRET
+donorplasmidDNA (4
+
+geach) met Lipofectamine3000 (LifeTechnologies, Darmstadt, Duitsland).
+Uitdrukking is uitgebroken op 37
+
+C, 5% CO
+2
+inaincubatorfor24h. naexpressie
+cellen werden twee keer gewassen met fosfaatbuffer, zout (PBS) en verzameld in glucose
+(Promega, Mannheim, Duitsland) .Na twee extra bevriezings- en dooicycli met vloeibare stikstof kan de ruwe
+lysaatwerd gezuiverd met centrifugeren bij 4
+
+Cat14.000
+g
+gedurende5min. de supernatantworden overgedragen
+naar een nieuwe buis en opgeslagen op
+
+20
+
+Cpriofverdere analyse.
+2.3.RLuc8Activity
+Gelijke bedragen (10
+
+L) ofeachBRETdonor (RLuc8-Ra02 enRLuc8-4xGly-Ra02) met
+lysaat werden geanalyseerd voor glucose-expressie. nativecoelenterazine (n-CLZ, NanoLightInc., Pinetop,
+AZ, VS) voorraad (1,0 mg / ml in 100% ethanol) werd verdund in BRET-assaybuffer (PBS-aangevuld
+met 1,0 g / ld-glucosemonohydraat (Roth, Karlsruhe, Duitsland), 0,1 g / l calciumchloride-dihydraat
+(Merck, Darmstadt, Duitsland) en 0,1 g / l magnesiumchlorideheptahydraat (Merck, Darmstadt,
+Duitsland)) en is toegestaan ​​om gedurende 20 minuten te stabiliseren.
+FlatWhite (Corning, Berlijn, Duitsland) en 100
+
+Een groot deel van de ondergrond die BRETassaybuffer bevatte
+toegevoegdaan elke BRETdonor.Luciferaslichtopbrengstwerd onmiddellijk na de substraattoevoeging gemeten
+usingTecanM1000Pro (Tecan, Groeding, Oostenrijk) met een integratietijd van 1s.
+2.4.WesternBlotAnalysis
+Gelijke hoeveelhedenlysaten (20
+
+L) werden gescheiden op 10% Tris-HCLSDS-PAGE en overgedragen
+toanitrocellulosemembraan.Membraanwerdgeïncubeerdmetrabbitanti-RLuc (Biomol, Hamburg,
+Duitsland) als antilichaam en geit tegen konijn-IgG-HRP (SigmaAldrich, Taufkirchen, Duitsland) als
+secundair antilichaam Rabbitanti-GAPDH (glyceraldehyde-3-fosfaatdehydrogenase) (R & DSystems,
+Wiesbaden, Duitsland) in combinatie met geitantanti-konijn-IgG-HRP als laadcontrole gebruikt.
+2.5 Experimentele instellingVEGFDetectie
+Volgens de schematische weergave (Schemes
+1
+Œ
+3
+verschillende instellingenvoorVEGF (rhVEGF165
+geproduceerd in HEK293; AcroBioscience; Londen, VK) gedetecteerd.
+Schema
+1
+, waardeeneenormolecuulnieteeneenmolecuulaaneeneenvast oppervlak
+(NuncMaxisorb96-wellplates, Roskilde, Denemarken), vóór een blokkeerprocedure met 1% gelatine
+in 1
+
+tris-bufferedsaline (TBS) en gevolgd door incubatie met VEGF en detectie met de
+BRETdonor / acceptor, volgens de instelling vananELISA (enzymgekoppelde immunosorbenttest).
+Wasstappenuitgevoerd met fosfaatbufferedsaline (PBS) aangevuld met 0,05% Tween
+20 (SigmaAldrich, Taufkirchen, Duitsland).
+BovendientoScheme
+1
+, een voorgeïncubeerde versie waarin een van de twee componenten (donor
+acceptor), wordt geïncubeerd voor de toevoeging van de VEGF en de tweede component (Scheme
+2
+) .InScheme
+3Artikel
+Op fisheye gebaseerde methode voor GPS-lokalisatie
+VerbeteringinUnknownSemi-Obstructed Areas
+JulienMoreau
+1,
+*, SébastienAmbellouis
+2
+andYassineRuichek
+1
+1
+UTBMIRTES-SET, RueErnestThierryMieg, 90010 BelfortCEDEX, Frankrijk; yassine.ruichek@utbm.fr
+2
+IFSTTAR-COSYS-LEOST, 20rueÉlyséeReclus, BP7031759666 Villeneuved'AscqCEDEX, Frankrijk;
+sebastien.ambellouis@ifsttar.fr
+*
+Correspondentie: julien.moreau@ifsttar.fr
+Academisch Redacteur: FelipeJimenez
+Ontvangen: 30 oktober 2016; Geaccepteerd: 4 januari 2017; Gepubliceerd: 17 januari 2017
+Abstract:
+Een nauwkeurige GNSS-lokalisatie (GlobalNavigationSatelliteSystem) is essentieel voor
+weg
+voertuigen, met name in een rommelige of stedelijke omgeving waar satellieten zijn uitgesloten, waardoor
+nauwkeurige positionering.Wij stellen zich in omGPS-gegevens (GlobalPositioningSystem) te gebruiken met
+stereovisie om dit probleem onafhankelijk te maken van aanvullende gegevens, mogelijk verouderd, niet beschikbaar,
+encorrelatie met de werkelijkheid nodig hebben. Ourstereoscopeissky-facingwith
+360 ° × 180 °
+camera's
+omobstakels in de omgeving waar te nemen.Weproposea3D-modelleringenvliegtuigafzuiging door
+volgende stappen: stereoscopische zelfkalibratie voor de kalibratie robuustheid, stereomatching overwegen
+burenpipolaircurvestocompute3D, androbustplangebaseerdopgeleverdecartografie
+andHoughtransform.Weusethese3DdatawithGPSrawdatatoestimateNLOS (NonLineOf
+Sight) rsignalspseudorangedelay.Weexploitegeëxtraheerde vliegtuigenopbouwbeschikbaarheidsmaskervoor
+NLOSdetectie.A3Dkanonmodel-toestaanaancomputerspseudorangetelays.
+In het einde wordt de gps-positionering berekend rekening houdend met gecorrigeerde pseudobereiken.
+onrealscenes, whowgegenereerde 3D-modellen die metrische nauwkeurigheid enverbetering van
+horizontaleGPS-positioneringnauwkeurigheidbymor dan50% .De voorgestelde procedure is effectief, en de
+voorgesteldeNLOSdetectieoutperformsCN0-gebaseerde methoden (carrier-to-receiverNoisedensity).
+Sleutelwoorden:
+voertuigpositionering; GPS; stereovisie; 3Dpointcloud
+1. Inleiding
+Het is een uitdagend probleem voor het corrigeren van PR (PseudoRange) vertragingen om GNSS (Global
+NavigationSatelliteSystem) lokalisatie.PRzijneenvandewaardengeplaatstomeenGNSSpositie te berekenen
+op de aardbol. zij vertegenwoordigen de gemeten afstand tussen de ontvanger en de satelliet,
+dat betekent dat ze meestal bias omvatten. apseudoranje is meestal rond enkele duizenden
+kilometers, maareenschattingfoutzwaarlasommetersnoodaaneennauwkeurige positioneringdie
+kunnen gemakkelijk de oorzaak van een meterfout opzoeken.
+De gepresenteerde procedureafsprakenmetlokalePRvertragingineenautonome weg.
+ingesloten gegevens, die grote voordelen hebben, met name de verwijdering van het plaatsingsprobleem
+zijnopgenomen3Dmodel.Theideaistogeneratea3Dlocalmodelonline, met asky-facing
+verrekijker stereovisueel vertraagda360
+° ×
+180
+°
+van het uitzicht in om rondom te komen
+het voertuig. het belangrijkste belang vansucha3 wederopbouw, centraal op een lokaal voertuigframe,
+is dat de
+GNSSantennapositie isnatuurlijk bekend met een hoge nauwkeurigheid in het model. Deze op visie gebaseerde
+methode wordt gekozen vanwege zijn vaststellingen
+eenvoudig te integreren
+onavehicle, togetdensedataabout
+het omliggende gebied met alleen een overname (twee afbeeldingen) en de lage kosten vergeleken met tolasensoren.
+Omdat de procedure niet in realtime is, toont onze tijd de haalbaarheidenef.
+Sensoren
+2017
+,
+17
+, 119; doi: 10.3390 / s17010119
+www.mdpi.com/journal/sensors
+Sensoren
+2017
+,
+17
+, 119
+10van34
+2.Ware-schaal3DModelleringvoorde voorgestelde methode
+Voorgestelde oplossingom de GNSSnauwkeurigheid te verbeteren in semi-occlude en omgeving is correct NLOS
+pseudo-vertraging.Dit heeft een 3D-model van het lokale gebied nodig.Gemeenschappelijke problemen van de staat van de kunst
+oplossingen zijn:
+Ł
+Gegevens moeten zo vaak mogelijk worden bijgewerkt.
+Ł
+Herpositionering in het 3D-model is moeilijk, waar de ontvanger niet goed gelokaliseerd is in de echte wereld.
+Ons doel is samen te gaan om het probleem op te lossen van een autonome manier.
+bestaat automatischopbouwendemilieu3D-model.Dit wordt op deze manier gegenereerd
+3D-model in de staat van het gebied en de positie van de ontvanger in het 3D-model is al bekend
+met hoge precisie.
+Het 3D-model wordt gegenereerd op basis van afbeeldingen van de voertuigvisiesensor. Het wordt gecentreerd op het lokale
+cameraframe.Camera'senGPS-antennes van de ontvanger worden gescheiden door een geldige transformatie (zie
+inFiguur
+4
+Met dank aan de transformatie, kan het gegenereerde model worden gelijk aan antennes
+Met andere woorden, gemodelleerde obstakelszijnintrinsiekennauwkeuriggeplaatst volgens
+Deze innovatie voorkomt het lokalisatieprobleem van de ontvanger in een opgenomen modelgps
+WGS84-frame, omdat de positie van de ontvanger alleen weet te berekenen
+(onnauwkeurige) GPS-positie in het WGS84-frame voor de versmelting met 3D-gegevens Topass van het lokale halve frame naar
+ENU-frame (EastNorthUp) is toegestaan ​​doorverticaalengeografischNoordassen te gebruiken.Satellietenkunnenworden
+gepositioneerdinhetENU-kadercentrumdeontvangereenvolgensdeirazimuthandelingen.
+Dus de voorgestelde methode elimineert het probleem met de ontvangst van de positie, omdat het 3D-model relatief wordt verwijderd
+tot deze positie.
+De methodologie die in dit papier is ontwikkeld, wordt weergegeven inFiguur
+2
+.Weconsidera
+goedkoop om 3D-informatie op te halen en te berekenen, met behulp van een camera met twee gezichten.
+De algoritmen zijn onderverdeeld in 2 hoofdonderdelen: 3D-modellering en GPS-verbetering door
+gegenereerde 3D-gegevens. veelstappenverschijnenin elk van deze onderdelen. 3D-modelleerbehoeften op twee weergaven
+ijktniet de relatieve oriëntatie tussen posities en het azimut van het voertuig.
+voltooiing van het matchproces wordt toegepast op een maximum van de details van het gebied. Het model is samengesteld
+Door een set van 3D-punten, kan binnen een planendetectie worden verwerkt om semantische gegevensvandescène te openen.
+Vliegtuigen worden dan gebruikt om een ​​zichtbaarheidsmasker te genereren. Dit wordt gebruikt om NLOS te detecteren.
+satellieten.DecorrectievanNLOSpseudorangesegebaseerdoplokalegeometrieinde
+3D-model.DelaagwordtverwijderdvanNLOSpseudorange en een of herprecisepositie kan
+worden berekend.Sensoren
+2017
+,
+17
+, 142
+6van15
+Figuur 3.
+Segmentenvancitrusvruchtenvoorgrondvoordeberekeningvanstandaardafwijking, (
+a1
+) isanormaal
+colorimage (VIS); (
+b1
+) is het overeenkomstige NIR-beeld van (
+a1
+); (
+c1
+) is een neutrale dichtheid verminderd
+afbeelding (NEUT); (
+d1
+) is het overeenkomstige NIR-beeld van (
+c1
+); (
+e1
+) isaline-polarisator-verzwakte afbeelding
+(POLA); (
+f1
+) is het overeenkomstige NIR-beeld van (
+e1
+); (
+a2
+Œ
+f2
+) zijn de overeenkomstige gesegmenteerde afbeeldingen
+rondomhetfruitgebiedeenvandegewijsuitdaaruit.
+Tafel 1.
+STDofRGBcomponentenvoortypenkleurenafbeeldingen.
+TypesofColorImage VISNEUTPOLA
+Componenten van RGB
+kleur ruimte
+RoodGroenBlauwRoodGroenBlauwRoodGroenBlauw
+STDofcitrus
+voorgrondkleur
+0.14540.16250.20370.24400.24940.13380.26320.23970.1034
+Tafel 2.
+STDvanintensiteitvanNIRcomponentpaarwisvoortypenkleurenafbeeldingen.
+Intensiteit van NIR voor
+ColorImage
+Intensiteit van NIR
+met VIS
+Intensiteit van NIR
+metNEUT
+Intensiteit van NIR
+met POLA
+STDofcitrusvoorgrondinNIR
+0.13360.12750.1306
+Figuur4.
+Regelingsovereenstemming met RGB- en NIR-componenten.Sensoren
+2017
+,
+17
+, 143
+5van18
+Figuur 1.
+Beschrijving van het formuleren van toegangsgedrag van mensen in Wi-Fi-netwerken.
+Voor het gemak van de beschrijving, kunt u het algemene 802.11gegevendiagram zien
+inFiguur
+2
+.AWi-Fideapparaatwerkt meestalin de landgoederen, en elke staatis opeenvolgend hoger
+puntintensievandevervolgensinIEEE802.11verbinding.Frameswordengedeeldinverschillend
+klassen. deWi-Fidevicestartsinstate1, endatakan worden verzonden via een distributie
+systemonlyinstate 3. Het Wi-Fi-apparaat wijzigt de status door verschillende frames uit te wisselen met
+hetAP.Wanneer een apparaat toegang krijgt tot eenAP, verandert itexhetauthenticatieframe met hetAP
+en vervolgens het verzoek voor associatie / herassociatie in het AP beantwoordt, beantwoordt het AP met de
+Association / Re-associatieResponseframe.TheDisassociationofDe-authenticationframecanbe
+gebruikt om de verbinding af te breken.
+Figuur 2.
+Algemeen802,11stediagram.
+We maken over de toegang van mensen tot de bewerkingen vanaf een AP, zoals weergegeven
+Omwille van eenvoud, weAssociatie / Re-associatieResponseframe en
+Disassociatie / De-authenticationframeastheaccessframeandexitframe, respectievelijk
+hettoegangsframeendeuitgangsframeontvangsttijdopdemonitorisdegeschattingvande
+de feitelijke tijdvandetoegang tot de gebeurtenisvandewi-fideapparaat. daarom kan er
+tussen hen. De vertraging verandert onder verschillende draadloze omgeving. De vertraging kan bijvoorbeeld
+hoe langer het draadloze netwerk is, of andersom.
+Figuur
+3
+naar de procedures voor het openen van een versleuteldAP. De Wi-Fi-apparaten kunnen hetAP
+Na het AP bouwen het apparaat een verbinding met het AP en beginnen ze metSensoren
+2017
+,
+17
+, 144
+6van11
+Hetelektrokatalytischegedragvande3,4DHSŒAuNP / SPCelektrode naar de oxidatie
+van H.
+2
+O
+2
+atpH7ŠdeoptimalevoorlactaatoxidaseenzymefunctieŠwerd bestudeerd.Figuur
+3
+een
+toont de cyclische voltamogrammen van 3,4DHSŒAuNP / SPCEin0,1Mfosfaatbuffer (pH7) in
+de afwezigheid en aanwezigheid van 1,0 mMofH
+2
+O
+2
+opgenomenop0.01V
+
+s
+
+1
+.Bij afwezigheid van H.
+2
+O
+2
+,
+een elektrochemische reactie (Figuur
+3
+a, grijslijn) toegeschreven aan de oxidatie / reductie van
+de hydrochinon / chinon-soorten van de 3,4DHS werden waargenomen. echter, in de aanwezigheid van
+2
+O
+2
+,
+er was een dramatische toename van de anodische piekstroom en praktisch geen stroom werd waargenomen
+inthereverse (kathodische) scan (figuur
+3
+a, zwarte lijn) .Dit gedrag kan zeer sterk zijn
+elektrokatalytisch effect. 3,4DHSŒAuNP / SPC heeft dus een uitstekende elektro-katalytische activiteit naar
+de oxidatie van H.
+2
+O
+2
+en vergemakkelijkt de elektrochemische detectie van deze verbinding voor een lager potentieel.
+Figuur 3.
+(
+een
+) Cyclischvoltammogramvan3,4DHSŒAuNP / SPCEin0,1Mfosfaatbuffer (pH7) in de
+afwezigheid (greyline) of aanwezigheid (blackline) van 1,0 mMofH
+2
+O
+2
+; (
+b
+) Cyclischvoltammogramoflactaat
+oxidase (LOx) /3,4DHSŒAuNP/SPCEin0,1M-fosfaatbuffer (pH7) in afwezigheid (stippellijn) of
+aanwezigheid (ononderbroken lijn) van 0,5 mMlactaat.Scanrate: 0,01V
+
+s
+
+1
+.
+Het3,4DHSŒAuNP / SPCE-platform werd gebruikt om een ​​sabotagemeting te ontwikkelen.
+op basis van deH
+2
+O
+2
+bevrijdtijdensdezymatische reactie. de biosensor was
+ontwikkelddoorkoppelingdeelactaatoxidaseenzymethet3,4DHSŒAuNP / SPCE-platform, zoals beschreven
+in het experimentele gedeelte. de cyclische voltammetrische biosensorrespons (LOx / 3,4DHSŒAuNP / SPCE)
+in de aanwezigheid en afwezigheid van het substraat (lactaat) werd gebruikt om de katalytische activiteit te beoordelen
+3
+b).
+Bij afwezigheid van lactaat (grijze lijn), was de goedgedragende redoxreactie van 3,4DHSŒAuNP gemakkelijk
+Na toevoeging van lactaat (tot een concentratie van 0,5 mM), was er een toename in
+anodische piekstroom doorelektrokatalytische oxidatie van de H.
+2
+O
+2
+gegenereerdinteenzymatische reactie.
+Bovendien werd een afname in de kathodepiekstroom waargenomen (zwarte lijn).
+het enzym in de katalytische respons op het substraat, 3,4DHSŒAuNP / SPC-elektroden zonder
+geïmmobiliseerd LOx werd ondergedompeld in 0,1 M fosfaatbufferoplossing (pH 7,0).
+na toevoeging van lactaat werden geen katalytische golven waargenomen.
+Het aantal van beide LOxen3,4DHSŒAuNPsin de ontwikkeling van de biosensor is geoptimaliseerd.
+Voor het doel worden verschillende biosensoren met een toenemend aantal van beide componenten voorbereid,
+enhunresponsestolactaatwerd verkregen. de biosensorresponsie is toegenomen als deeenheden van enzym
+opgenomen in de detectielaag verhoogd van 0,3 tot 1,0 U (Figuur
+4
+a). hogere enzymbelasting,
+er was een afname in de reactie van de biosensor. Dit is waarschijnlijk te wijten aan een overtollig eiwit in de
+biosensielaag die zou kunnen voorkomen dat de lading wordt overgedragen naar het elektrodenoppervlak.
+met deze resultaten werd 1.0UofLOx als optimaal gekozen.
+Als enige verwachting, toont de LOxbiosensor een afhankelijkheid van de hoeveelheid
+van3,4DHSŒAuNPsafgezetophetelektrodesurface.Biosensorenvoorbereidmet20,70, of180fmolofSensoren
+2017
+,
+17
+, 145
+4van 10
+frame (ORF), en door Rluc8 rechtstreeks naar het
+N
+-terminusorgescheidenmetapeptidelinker
+(4
+
+glycine).
+TheescentdyePerCP-Cy5.5
+®
+(LightningLink, Cambridge, VK) was niet-draagbaar
+recombinantneuropiline-1 (NRP-1) (R & DSystems, Wiesbaden, Duitsland) volgens een fabrikant
+instructies om het BRETacceptor-interview te genereren, 1
+
+Lofwerdaan10 toegevoegd
+
+Lof
+carrier-vrijeuropiline1 (1.0
+
+g /
+
+L) .Het hele monster werd gemengd en gepipetteerd naar het gelyofiliseerd
+LightningLinkmix.Na incubatie op kamertemperatuur voor 3 uur, 1
+
+LofLL-quencherFDreagent
+wastoegevoegdper10
+
+L.Naaanvullende incubatie gedurende 30 minuten, zijn de conjugaten klaar voor gebruikof
+opgeslagenat
+
+20
+
+C.
+2.2 Celcultuur en BRETDonor-expressie
+HEK293 (ATCC: CRL-1573) werden gekweekt in DMEM (Dulbeccoseaglemedia)
+aangevuld met penicilline / streptomycine, l-glutamine (200 mM) en 10% foetaal runderserum (FBS)
+(allemaal gekocht van PANBiotech, Aidenbach, Duitsland) .De cellenworden getransfecteerdmetdeBRET
+donorplasmidDNA (4
+
+geach) met Lipofectamine3000 (LifeTechnologies, Darmstadt, Duitsland).
+Uitdrukking is uitgebroken op 37
+
+C, 5% CO
+2
+inaincubatorfor24h. naexpressie
+cellen werden twee keer gewassen met fosfaatbuffer, zout (PBS) en verzameld in glucose
+(Promega, Mannheim, Duitsland) .Na twee extra bevriezings- en dooicycli met vloeibare stikstof kan de ruwe
+lysaatwerd gezuiverd met centrifugeren bij 4
+
+Cat14.000
+g
+gedurende5min. de supernatantworden overgedragen
+naar een nieuwe buis en opgeslagen op
+
+20
+
+Cpriofverdere analyse.
+2.3.RLuc8Activity
+Gelijke bedragen (10
+
+L) ofeachBRETdonor (RLuc8-Ra02 enRLuc8-4xGly-Ra02) met
+lysaat werden geanalyseerd voor glucose-expressie. nativecoelenterazine (n-CLZ, NanoLightInc., Pinetop,
+AZ, VS) voorraad (1,0 mg / ml in 100% ethanol) werd verdund in BRET-assaybuffer (PBS-aangevuld
+met 1,0 g / ld-glucosemonohydraat (Roth, Karlsruhe, Duitsland), 0,1 g / l calciumchloride-dihydraat
+(Merck, Darmstadt, Duitsland) en 0,1 g / l magnesiumchlorideheptahydraat (Merck, Darmstadt,
+Duitsland)) en is toegestaan ​​om gedurende 20 minuten te stabiliseren.
+FlatWhite (Corning, Berlijn, Duitsland) en 100
+
+Een groot deel van de ondergrond die BRETassaybuffer bevatte
+toegevoegdaan elke BRETdonor.Luciferaslichtopbrengstwerd onmiddellijk na de substraattoevoeging gemeten
+usingTecanM1000Pro (Tecan, Groeding, Oostenrijk) met een integratietijd van 1s.
+2.4.WesternBlotAnalysis
+Gelijke hoeveelhedenlysaten (20
+
+L) werden gescheiden op 10% Tris-HCLSDS-PAGE en overgedragen
+toanitrocellulosemembraan.Membraanwerdgeïncubeerdmetrabbitanti-RLuc (Biomol, Hamburg,
+Duitsland) als antilichaam en geit tegen konijn-IgG-HRP (SigmaAldrich, Taufkirchen, Duitsland) als
+secundair antilichaam Rabbitanti-GAPDH (glyceraldehyde-3-fosfaatdehydrogenase) (R & DSystems,
+Wiesbaden, Duitsland) in combinatie met geitantanti-konijn-IgG-HRP als laadcontrole gebruikt.
+2.5 Experimentele instellingVEGFDetectie
+Volgens de schematische weergave (Schemes
+1
+Œ
+3
+verschillende instellingenvoorVEGF (rhVEGF165
+geproduceerd in HEK293; AcroBioscience; Londen, VK) gedetecteerd.
+Schema
+1
+, waardeeneenormolecuulnieteeneenmolecuulaaneeneenvast oppervlak
+(NuncMaxisorb96-wellplates, Roskilde, Denemarken), vóór een blokkeerprocedure met 1% gelatine
+in 1
+
+tris-bufferedsaline (TBS) en gevolgd door incubatie met VEGF en detectie met de
+BRETdonor / acceptor, volgens de instelling vananELISA (enzymgekoppelde immunosorbenttest).
+Wasstappenuitgevoerd met fosfaatbufferedsaline (PBS) aangevuld met 0,05% Tween
+20 (SigmaAldrich, Taufkirchen, Duitsland).
+BovendientoScheme
+1
+, een voorgeïncubeerde versie waarin een van de twee componenten (donor
+acceptor), wordt geïncubeerd voor de toevoeging van de VEGF en de tweede component (Scheme
+2
+) .InScheme
+3

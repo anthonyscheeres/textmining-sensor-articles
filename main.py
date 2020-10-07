@@ -31,12 +31,15 @@ def rename_alll(pathToPdf, pathToOutput, x):
 
 
             text = []
-
           
 
-            text=  read_text(dir + filename)
+            text=  read_text(pathToPdf + filename)
 
             textEnglish = filter_text(text)
+
+
+            print (textEnglish)
+
 
             textDutch = translate_text(textEnglish)
 
@@ -47,23 +50,26 @@ def rename_alll(pathToPdf, pathToOutput, x):
 
 
 def append_text_file(text, x):
-    with open(x, "a") as myfile:
+    with open(x, "a", encoding="utf-8") as myfile:
         myfile.write(text)
 
 
 def filter_text(textArray):
+    
+    text = ""
 
 
+    for textPage in textArray:
 
-    for index in textArray:
-        
-        textPage = textArray(index)
+        while get_mirror2(textPage) !=None:
 
-        text = null
+            textPage = ""
 
-        while get_mirror2(textPage) !=null:
             sub = get_mirror2(textPage)
-            textPage.remove(sub)
+
+
+            if sub !=None:
+                textPage.replace(sub, "")
 
 
         text = text + textPage
@@ -77,7 +83,7 @@ def filter_text(textArray):
 
 def translate_text(text):
     translator = Translator()
-    return translator.translate(text, dest="nl", src="en")
+    return translator.translate(text, dest="nl", src="en").text
 
 
 def read_text(path):
@@ -90,7 +96,7 @@ def read_text(path):
 
     textArray =[]
 
-    for page in pdfReader.numPages:
+    for page in range(pdfReader.numPages):
         # creating a page object 
         pageObj = pdfReader.getPage(page) 
         # extracting text from page 
