@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
-/.vs/
+
 output.txt
 
 # Distribution / packaging
@@ -73,7 +73,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
-
+/.vs/
+/env/
 # PyBuilder
 target/
 
