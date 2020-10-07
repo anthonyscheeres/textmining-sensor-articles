@@ -53,7 +53,11 @@ def rename_alll(pathToPdf, pathToOutput, x):
 
 
 def get_header(myString):
-    mySubString = myString[myString.find("20"):myString.index(" ", myString.find("www.mdpi.com/journal/"))]
+    try:
+        mySubString = myString[myString.find("20"):myString.index(" ", myString.find("www.mdpi.com/journal/"))]
+    except:
+        mySubString = None
+
     return mySubString
 
 def get_introduction(myString):
@@ -81,16 +85,35 @@ def filter_text(textArray):
 
         textPage = get_introduction(textPage)
 
+        
+        sub2 = ""
+        
+        sub2 = get_header(textPage)
+
+
+        if check_is_none(sub2):
+            textPage = textPage.replace(sub2, "")
+
+        
         while check_is_none(get_mirror2(textPage)):
 
             sub = ""
            
+     
 
             sub = get_mirror2(textPage)
+
+         
+
+
+         
+
 
             if check_is_none(sub):
                 textPage = textPage.replace(sub, "")
 
+
+           
 
         text = text + textPage
 
