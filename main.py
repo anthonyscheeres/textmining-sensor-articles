@@ -23,9 +23,9 @@ def get_dir():
     return dirpath
 
 
-def rename_alll(dir, x):
+def rename_alll(pathToPdf, pathToOutput, x):
   
-    for filename in os.listdir(dir):
+    for filename in os.listdir(pathToPdf):
         if filename.find(".py")==-1:
             #do stuff with the files
 
@@ -34,13 +34,13 @@ def rename_alll(dir, x):
 
           
 
-            text=  read_text(dir)
+            text=  read_text(dir + filename)
 
             textEnglish = filter_text(text)
 
             textDutch = translate_text(textEnglish)
 
-            append_text_file(textDutch, x)
+            append_text_file(textDutch, pathToOutput)
 
 
 
@@ -53,16 +53,20 @@ def append_text_file(text, x):
 
 def filter_text(textArray):
 
+
+
     for index in textArray:
         
         textPage = textArray(index)
 
+        text = null
 
         while get_mirror2(textPage) !=null:
             sub = get_mirror2(textPage)
             textPage.remove(sub)
 
-        text = textPage
+
+        text = text + textPage
 
         if "2." in textPage:
             break
@@ -121,8 +125,11 @@ def main():
     x = "output.txt"
     dir=get_dir()
 
-    path = dir +"\\article\\"+ filename
-    rename_alll(path, x)
+    pathToPdf = dir +"//articles//"
+
+    pathToOutput = dir + "//"+x
+
+    rename_alll(pathToPdf, pathToOutput, x)
 
 
 
