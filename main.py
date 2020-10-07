@@ -52,6 +52,10 @@ def rename_alll(pathToPdf, pathToOutput, x):
 
 
 
+def get_header(myString):
+    mySubString = myString[myString.find("20"):myString.index(" ", myString.find("www.mdpi.com/journal/"))]
+    return mySubString
+
 def get_introduction(myString):
      mySubString = myString[myString.find("Introduction"):myString.find("2.")]
      return mySubString
@@ -148,6 +152,10 @@ def main():
     dir=get_dir()
 
     pathToPdf = dir +"//articles//"
+
+    if not os.path.exists(pathToPdf):
+        os.makedirs(pathToPdf)
+
 
     pathToOutput = dir + "//"+x
 
